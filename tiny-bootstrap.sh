@@ -244,11 +244,14 @@ function show_help() {
 	echo "        version info (default value: $DEFAULT_VERSION)"
 	echo "    -b|--build <number>"
 	echo "        build number (default value: $DEFAULT_BUILD_NUMBER)"
+	echo "    -h|--help"
+	echo "        show this help text"
 	exit 0
 }
 
 # Set options (ie extract arguments from command line or choose defaults)
 function set_options() {
+	UNKNOWN_OPTIONS=""
 	while [[ $# -gt 0 ]] ; do
 		case $1 in
 			-a|--architecture)
@@ -276,16 +279,22 @@ function set_options() {
 				shift
 				shift
 				;;
-			-?|-h|--help)
-				show_help
+			-h|--help)
+				UNKNOWN_OPTIONS="HELP"
 				shift
 				;;
 			*)
+				UNKNOWN_OPTIONS="#$UNKNOWN_OPTIONS"
 				echo "Unknown option $1 (ignoring)"
 				shift
 				;;
 		esac
 	done
+
+	if [[ "$UNKNOWN_OPTIONS" != "" ]] ; then
+		echo ""
+		show_help
+	fi
 }
 
 ##############################################################################
