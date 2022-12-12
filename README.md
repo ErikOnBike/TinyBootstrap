@@ -8,6 +8,9 @@ Tiny images are headless images with a small subset of a regular Smalltalk imple
 ## Purposes
 A tiny image can be run inside a webbrowser using the [SqueakJS VM](https://github.com/codefrau/SqueakJS) or from the command line using nodejs using the headless bundle.
 
+## Usage
+The bootstrapper can be run from a regular Pharo 10 image or using the provided shell script (which will download, install and execute all relevant code). The script accepts a number of parameters. Use `./tiny-bootstrap.sh -h` for help.
+
 ## Examples
 The source code for some example images is provided. The final image size should be around 150Kb to 300Kb for these examples (64 bit versions are around 50% larger than 32 bit versions).
 
