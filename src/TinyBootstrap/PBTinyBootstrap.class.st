@@ -31,15 +31,20 @@ Class {
 { #category : #running }
 PBTinyBootstrap class >> bootstrap [
 
-	"Perform bootstrap using default values (source location will be './bootstrap-source')"
+	"Perform bootstrap using default values"
 
-	self bootstrapFromSource: nil into: 'tiny.image' version: '1.0' buildNumber: 42
+	self
+		bootstrapArchitecture: 'TinyImage32'
+		fromSource: './bootstrap-source'
+		into: 'tiny.image'
+		version: '1.0'
+		buildNumber: 42
 ]
 
 { #category : #running }
-PBTinyBootstrap class >> bootstrapFromSource: sourceString into: imageNameString version: versionString buildNumber: anInteger [
+PBTinyBootstrap class >> bootstrapArchitecture: aSymbol fromSource: sourceString into: imageNameString version: versionString buildNumber: anInteger [
 
-	self for32Bits
+	(self forArchitecture: aSymbol)
 		environmentLocation: sourceString ;
 		imageName: imageNameString ;
 		versionInfo: (PBVersionInfo fromSemanticVersion: versionString) ;
@@ -50,19 +55,13 @@ PBTinyBootstrap class >> bootstrapFromSource: sourceString into: imageNameString
 { #category : #'instance creation' }
 PBTinyBootstrap class >> for32Bits [
 
-	^ self new
+	^ self forArchitecture: 'TinyImage32'
 ]
 
 { #category : #'instance creation' }
 PBTinyBootstrap class >> for64Bits [
 
-	self error: 'Currently 64bit tiny images are not supported'
-]
-
-{ #category : #'instance creation' }
-PBTinyBootstrap class >> new [
-
-	^ self forArchitecture: 'Tiny'
+	^ self forArchitecture: 'TinyImage64'
 ]
 
 { #category : #preparation }
@@ -81,7 +80,7 @@ PBTinyBootstrap >> createRingEnvironment [
 { #category : #accessing }
 PBTinyBootstrap >> environmentLocation [
 
-	^ environmentLocation ifNil: [ './bootstrap-source' ]
+	^ environmentLocation
 ]
 
 { #category : #accessing }

@@ -7,19 +7,19 @@ class which knows how to use my name.
 
 "
 Class {
-	#name : #PBImageBuilderSpur50Tinybit,
+	#name : #PBImageBuilderTinyImage32bit,
 	#superclass : #PBImageBuilderSpur50,
 	#category : #'TinyBootstrap-Core'
 }
 
 { #category : #helpers }
-PBImageBuilderSpur50Tinybit >> checkpoint: aString [
+PBImageBuilderTinyImage32bit >> checkpoint: aString [
 
 	self crTrace: aString
 ]
 
 { #category : #running }
-PBImageBuilderSpur50Tinybit >> createClasses [
+PBImageBuilderTinyImage32bit >> createClasses [
 
 	"Create all classes.
 
@@ -64,7 +64,7 @@ PBImageBuilderSpur50Tinybit >> createClasses [
 ]
 
 { #category : #running }
-PBImageBuilderSpur50Tinybit >> createInitialObjects [
+PBImageBuilderTinyImage32bit >> createInitialObjects [
 
 	"Create initial objects.
 
@@ -189,7 +189,7 @@ PBImageBuilderSpur50Tinybit >> createInitialObjects [
 ]
 
 { #category : #running }
-PBImageBuilderSpur50Tinybit >> createVMStubs [
+PBImageBuilderTinyImage32bit >> createVMStubs [
 
 	"Create VM stubs.
 
@@ -236,6 +236,7 @@ PBImageBuilderSpur50Tinybit >> createVMStubs [
 	objectSpace backend largePositiveIntegerClass: (self createStubForClassNamed: #LargePositiveInteger).
 	objectSpace backend methodClass: (self createStubForClassNamed: #CompiledMethod).
 	objectSpace backend floatClass: (self createStubForClassNamed: #Float).							"TI: Non boxed Float(32)"
+	objectSpace backend smallFloatClass: objectSpace backend floatClass.								"TI: For 64 bits"
 	objectSpace backend contextClass: (self createStubForClassNamed: #Context).
 	objectSpace backend processClass: (self createStubForClassNamed: #Process).
 	objectSpace backend blockClass: (self createStubForClassNamed: #BlockClosure).
@@ -258,13 +259,13 @@ PBImageBuilderSpur50Tinybit >> createVMStubs [
 ]
 
 { #category : #initialization }
-PBImageBuilderSpur50Tinybit >> initializeBackend [
+PBImageBuilderTinyImage32bit >> initializeBackend [
 
 	espellBackend := EPSimulatorBackend for32Bit forBootstrap
 ]
 
 { #category : #initialization }
-PBImageBuilderSpur50Tinybit >> initializeImage [
+PBImageBuilderTinyImage32bit >> initializeImage [
 
 	"Initialize the bootstrap image.
 
@@ -349,7 +350,7 @@ PBImageBuilderSpur50Tinybit >> initializeImage [
 ]
 
 { #category : #initialization }
-PBImageBuilderSpur50Tinybit >> instantiateClassLoader [
+PBImageBuilderTinyImage32bit >> instantiateClassLoader [
 
 	"Override the class loader"
 
@@ -357,7 +358,7 @@ PBImageBuilderSpur50Tinybit >> instantiateClassLoader [
 ]
 
 { #category : #running }
-PBImageBuilderSpur50Tinybit >> mapCommonClasses [
+PBImageBuilderTinyImage32bit >> mapCommonClasses [
 
 	"Map some common classes to basic classes within the tiny image"
 
