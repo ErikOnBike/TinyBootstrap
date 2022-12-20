@@ -17,6 +17,8 @@ DEFAULT_SOURCE_LOCATION="./bootstrap-source"
 SOURCE_LOCATION="$DEFAULT_SOURCE_LOCATION"
 DEFAULT_TARGET_FILE_NAME="./tiny.image"
 TARGET_FILE_NAME="$DEFAULT_TARGET_FILE_NAME"
+DEFAULT_START_UP="Smalltalk startUp"
+START_UP="$DEFAULT_START_UP"
 DEFAULT_VERSION="1.0"
 VERSION="$DEFAULT_VERSION"
 DEFAULT_BUILD_NUMBER="42"
@@ -197,6 +199,7 @@ function perform_bootstrap() {
 	echo "Perform bootstrap process"
 	echo "    architecture:  $WORD_SIZE (bits)"
 	echo "    source:        $SOURCE_LOCATION"
+	echo "    start up:      $START_UP"
 	echo "    target:        $TARGET_FILE_NAME"
 	echo "    version:       $VERSION"
 	echo "    build:         $BUILD_NUMBER"
@@ -207,6 +210,7 @@ function perform_bootstrap() {
 			bootstrapArchitecture: 'TinyImage$WORD_SIZE'
 			fromSource: '$SOURCE_LOCATION'
 			into: '$TARGET_FILE_NAME'
+			startUp: '${START_UP//\'/''}'
 			version: '$VERSION'
 			buildNumber: $BUILD_NUMBER.
 		VTermOutputDriver stderr << 'SUCCESS'.
@@ -240,6 +244,8 @@ function show_help() {
 	echo "        directory containing the bootstrap source code (default value: $DEFAULT_SOURCE_LOCATION)"
 	echo "    -t|--target <filename>"
 	echo "        filename for the final tiny image (default value: $DEFAULT_TARGET_FILE_NAME)"
+	echo "    -c|--start-up <start up code>"
+	echo "        Smalltalk code to start up the image (default value: $DEFAULT_START_UP)"
 	echo "    -v|--version <string>"
 	echo "        version info (default value: $DEFAULT_VERSION)"
 	echo "    -b|--build <number>"
@@ -266,6 +272,11 @@ function set_options() {
 				;;
 			-t|--target)
 				TARGET_FILE_NAME="$2"
+				shift
+				shift
+				;;
+			-c|--start-up)
+				START_UP="$2"
 				shift
 				shift
 				;;
