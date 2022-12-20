@@ -8,7 +8,10 @@ class which knows how to use my name.
 "
 Class {
 	#name : #PBImageBuilderTinyImage32bit,
-	#superclass : #PBImageBuilderSpur50,
+	#superclass : #PBImageBuilderSpur5032bit,
+	#instVars : [
+		'startUp'
+	],
 	#category : #'TinyBootstrap-Core'
 }
 
@@ -259,12 +262,6 @@ PBImageBuilderTinyImage32bit >> createVMStubs [
 ]
 
 { #category : #initialization }
-PBImageBuilderTinyImage32bit >> initializeBackend [
-
-	espellBackend := EPSimulatorBackend for32Bit forBootstrap
-]
-
-{ #category : #initialization }
 PBImageBuilderTinyImage32bit >> initializeImage [
 
 	"Initialize the bootstrap image.
@@ -314,7 +311,7 @@ PBImageBuilderTinyImage32bit >> initializeImage [
 					            ('build' -> versionInfo buildNumber).
 					            ('hash' -> versionInfo commitHash) } asDictionary).
 "																							"TI: Class PharoBootstrapInitialization not present"
-	process := objectSpace createProcessWithPriority: 3 doing: 'System startBuild: ''Tiny Image (build ' , DateAndTime now asLocalStringYMDHM , ')''' withTemps: #().
+	process := objectSpace createProcessWithPriority: 3 doing: (startUp ifNil: [ 'Smalltalk startUp' ]) withTemps: #().
 	objectSpace installAsActiveProcess: process.
 
 	self followForwardingPointers.
@@ -365,4 +362,12 @@ PBImageBuilderTinyImage32bit >> mapCommonClasses [
 	self bootstrapInterpreter evaluateCode:
 		'Smalltalk at: #GlobalVariable put: Association.
 		Smalltalk at: #ClassVariable put: Association.'
+]
+
+{ #category : #accessing }
+PBImageBuilderTinyImage32bit >> startUp: aString [
+
+	"Set the String which contains the start up code"
+
+	startUp := aString
 ]

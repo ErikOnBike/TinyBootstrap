@@ -23,7 +23,8 @@ Class {
 	#name : #PBTinyBootstrap,
 	#superclass : #PBBootstrap,
 	#instVars : [
-		'environmentLocation'
+		'environmentLocation',
+		'startUp'
 	],
 	#category : #'TinyBootstrap-Core'
 }
@@ -37,16 +38,18 @@ PBTinyBootstrap class >> bootstrap [
 		bootstrapArchitecture: 'TinyImage32'
 		fromSource: './bootstrap-source'
 		into: 'tiny.image'
+		startUp: 'Smalltalk startUp'
 		version: '1.0'
 		buildNumber: 42
 ]
 
 { #category : #running }
-PBTinyBootstrap class >> bootstrapArchitecture: aSymbol fromSource: sourceString into: imageNameString version: versionString buildNumber: anInteger [
+PBTinyBootstrap class >> bootstrapArchitecture: aSymbol fromSource: sourceString into: imageNameString startUp: startString version: versionString buildNumber: anInteger [
 
 	(self forArchitecture: aSymbol)
 		environmentLocation: sourceString ;
 		imageName: imageNameString ;
+		startUp: startString ;
 		versionInfo: (PBVersionInfo fromSemanticVersion: versionString) ;
 		buildNumber: anInteger ;
 		bootstrap
@@ -64,10 +67,32 @@ PBTinyBootstrap class >> for64Bits [
 	^ self forArchitecture: 'TinyImage64'
 ]
 
+{ #category : #bootstrapping }
+PBTinyBootstrap >> createImage [
+
+	"Create image.
+
+	Implementation:
+	Special variant for tiny image. This method should be exact copy of
+	superclass' implementation in which only required changes are made.
+	(The changes are commented with 'TI' - Tiny Image)."
+
+	| builder |
+
+	builder := PBImageBuilderSpur50 forAnyArchitecture: architecture.		"TI: Use #forAnyArchitecture: which can find the correct builder"
+	builder startUp: startUp.															"TI: Set the start up code for the image"
+	builder versionInfo: versionInfo.
+	builder imageFileReference: imageReference.
+	builder systemDefinition: ringEnvironment.
+	builder espellBackend instanceVariableMapping: (PBInstanceVariableMapping onEnvironment: ringEnvironment ).
+		
+	builder bootstrap
+]
+
 { #category : #preparation }
 PBTinyBootstrap >> createRingEnvironment [
 
-	ringEnvironment := RGEnvironment fromTonelRepositoryAtUrl: 'tonel://', self environmentLocation.
+	ringEnvironment := RGEnvironment fromTonelRepositoryAtUrl: 'tonel://', environmentLocation.
 
 	ringEnvironment
 		fixProtoObjectClassSuperclass ;
@@ -78,13 +103,9 @@ PBTinyBootstrap >> createRingEnvironment [
 ]
 
 { #category : #accessing }
-PBTinyBootstrap >> environmentLocation [
-
-	^ environmentLocation
-]
-
-{ #category : #accessing }
 PBTinyBootstrap >> environmentLocation: aString [
+
+	"Set the location for the environment where the source code is stored"
 
 	environmentLocation := aString
 ]
@@ -108,4 +129,12 @@ PBTinyBootstrap >> prepareBootstrap [
 	No exports are made (no need for them)."
 
 	self createRingEnvironment
+]
+
+{ #category : #accessing }
+PBTinyBootstrap >> startUp: aString [
+
+	"Set the String which contains the start up code"
+
+	startUp := aString
 ]
