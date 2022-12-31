@@ -95,14 +95,6 @@ function smalltalk_execute() {
 	return
 }
 
-# Install the specified baseline (using given repo URL)
-#
-# First argument specifies baseline name (excluding prefix BaselineOf)
-# second argument specifies the repo location as URL.
-function install_baseline() {
-	echo "Hoi"
-}
-
 # Fix location of Pharo repository (by default Pharo is loaded ;-)
 function fix_location_pharo_repository() {
 	SCRIPT="
