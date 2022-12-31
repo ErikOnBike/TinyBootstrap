@@ -140,6 +140,7 @@ PBImageBuilderTinyImage32bit >> createInitialObjects [
 	PBSubStepFinishedSignal emit: 'Initializing String AsciiTable'.
 	"self bootstrapInterpreter evaluateCode:
 		'String classPool at: #AsciiOrder put: ((0 to: 255) as: ByteArray).'."		"TI: Not available"
+	self bootstrapInterpreter evaluateCode: 'String initialize.'.
 
 	PBSubStepFinishedSignal emit: 'Initializing SmallInteger constants'.
 	"self bootstrapInterpreter evaluateCode: 'SmallInteger instVarAt: '
