@@ -1,7 +1,7 @@
 "
 I am the bootstrap class responsible for creating a tiny image.
 
-Do be able to create a tiny image, bootstrap source code should be
+To be able to create a tiny image, bootstrap source code should be
 provided. This can either be in the default 'bootstrap-source' directory
 (under the root of the Pharo execution environment) or explicitly
 specified using a (relative or absolute) directory reference.
@@ -9,12 +9,14 @@ specified using a (relative or absolute) directory reference.
 Example usage:
 
 ""All default values""
-PBTinyBoostrap bootstrap.
+PBTinyBootstrap bootstrap.
 
 ""All explicit values""
 PBTinyBootstrap
-		bootstrpFromSource: '../boot-source-code/'
+		bootstrapArchitecture: 'TinyImage32'
+		fromSource: '../boot-source-code/'
 		into: '../boot-target-image/target.image'
+		startUp: 'Smalltalk startUp'
 		version: '1.0.1'
 		buildNumber: 42.
 
