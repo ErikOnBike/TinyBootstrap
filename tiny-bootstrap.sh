@@ -145,7 +145,8 @@ function load_espell() {
 			Metacello new 
 				baseline: 'Espell';
 				repository: 'github://guillep/espell:v1.6.1/src';
-				onConflictUseIncoming ;
+				onConflictUseIncoming;
+				onWarningLog;
 				load.
 
 			(Smalltalk classNamed: 'EPASTInterpreter')
