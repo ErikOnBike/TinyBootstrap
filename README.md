@@ -18,14 +18,14 @@ Use the following script to create a working directory and bootstrap a tiny imag
 mkdir -p working
 cd working
 git clone https://github.com/ErikOnBike/TinyBootstrap tiny-bootstrap
-./tiny-bootstrap/tiny-bootstrap -a 64 -s tiny-bootstrap/examples/src -t test.image -c "Example42 doIt"
+./tiny-bootstrap.sh -a 64 -s ./examples/src -t test.image -c "Example42 doIt"
 ```
 
 ### Example42
 The Example42 is an example that will simply show `Answer: 42` on the console (using /dev/stdout).
 
 ```bash
-./tiny-bootstrap/tiny-bootstrap -a 64 -s tiny-bootstrap/examples/src -t example42.image -c "Example42 doIt"
+./tiny-bootstrap.sh -a 64 -s ./examples/src -t example42.image -c "Example42 doIt"
 ```
 
 If the tiny image is created correctly, you can execute it using:
@@ -37,7 +37,7 @@ If the tiny image is created correctly, you can execute it using:
 The ExampleDir is an example that will print all the entries (printString of directory entry which is Array of values) in the current directory on the console (using /dev/stdout).
 
 ```bash
-./tiny-bootstrap/tiny-bootstrap -a 64 -s tiny-bootstrap/examples/src -t example-dir.image -c "ExampleDir doIt"
+./tiny-bootstrap.sh -a 64 -s ./examples/src -t example-dir.image -c "ExampleDir doIt"
 ```
 
 If the tiny image is created correctly, you can execute it using:
