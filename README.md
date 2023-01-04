@@ -15,9 +15,8 @@ The source code for some example images is provided. The final image size should
 Use the following script to create a working directory and bootstrap a tiny image for one of the examples. The bootstrap process will take some time on the first run since it will import quite some code. After the first run, the bootstrap source code (the example code) can be changed and re-running the (last line of the) script will be a lot faster. Only the actual bootstrap process will be executed then.
 
 ```bash
-mkdir -p working
-cd working
-git clone https://github.com/ErikOnBike/TinyBootstrap tiny-bootstrap
+git clone https://github.com/ErikOnBike/TinyBootstrap
+cd TinyBootstrap
 ./tiny-bootstrap.sh -a 64 -s ./examples/src -t test.image -c "Example42 doIt"
 ```
 
