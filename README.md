@@ -15,17 +15,16 @@ The source code for some example images is provided. The final image size should
 Use the following script to create a working directory and bootstrap a tiny image for one of the examples. The bootstrap process will take some time on the first run since it will import quite some code. After the first run, the bootstrap source code (the example code) can be changed and re-running the (last line of the) script will be a lot faster. Only the actual bootstrap process will be executed then.
 
 ```bash
-mkdir -p working
-cd working
-git clone https://github.com/ErikOnBike/TinyBootstrap tiny-bootstrap
-./tiny-bootstrap/tiny-bootstrap -a 64 -s tiny-bootstrap/examples/src -t test.image -c "Example42 doIt"
+git clone https://github.com/ErikOnBike/TinyBootstrap
+cd TinyBootstrap
+./tiny-bootstrap.sh -a 64 -s ./examples/src -t test.image -c "Example42 doIt"
 ```
 
 ### Example42
 The Example42 is an example that will simply show `Answer: 42` on the console (using /dev/stdout).
 
 ```bash
-./tiny-bootstrap/tiny-bootstrap -a 64 -s tiny-bootstrap/examples/src -t example42.image -c "Example42 doIt"
+./tiny-bootstrap.sh -a 64 -s ./examples/src -t example42.image -c "Example42 doIt"
 ```
 
 If the tiny image is created correctly, you can execute it using:
@@ -37,7 +36,7 @@ If the tiny image is created correctly, you can execute it using:
 The ExampleDir is an example that will print all the entries (printString of directory entry which is Array of values) in the current directory on the console (using /dev/stdout).
 
 ```bash
-./tiny-bootstrap/tiny-bootstrap -a 64 -s tiny-bootstrap/examples/src -t example-dir.image -c "ExampleDir doIt"
+./tiny-bootstrap.sh -a 64 -s ./examples/src -t example-dir.image -c "ExampleDir doIt"
 ```
 
 If the tiny image is created correctly, you can execute it using:
