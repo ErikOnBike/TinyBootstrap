@@ -44,5 +44,17 @@ If the tiny image is created correctly, you can execute it using:
 ./pharo example-dir.image
 ```
 
+### ExampleCounter
+The ExampleCounter is an example that will print a counter value on the console (using /dev/stdout) on each run. The counter will be increased/decreased after being printed. The counter will go from 0 to 10 and back to 0 again (and repeat). This example shows the tiny image can be saved (more precisely, I snapshot can be made).
+
+```bash
+./tiny-bootstrap.sh -a 64 -s ./examples/src -t example-counter.image -c "ExampleCounter doIt"
+```
+
+If the tiny image is created correctly, you can execute it using the following (execute it repeatedly to see the counter change).
+```bash
+./pharo example-counter.image
+```
+
 ## Origin
 The bootstrapper is created to allow the tiny image for [CodeParadise](https://github.com/ErikOnBike/CodeParadise) to be bootstrapped. The source code for that tiny image can be found at [CP-Bootstrap](https://github.com/ErikOnBike/CP-Bootstrap).
