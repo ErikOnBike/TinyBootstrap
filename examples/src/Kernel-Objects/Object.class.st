@@ -208,17 +208,13 @@ Object >> doesNotUnderstand: aMessage [
 		
 	| exception resumeValue |
 
-	self
-		crError: self printString, ' doesNotUnderstand: ', aMessage selector printString ;
-		crError: thisContext printString.
-
 	(exception := MessageNotUnderstood new)
 		message: aMessage ;
 		receiver: self.
 	resumeValue := exception signal.
-	^ (self isNotNil and: [ exception reachedDefaultHandler ])
-		ifTrue: [aMessage sentTo: self]
-		ifFalse: [resumeValue]
+	^ exception reachedDefaultHandler
+		ifTrue: [ aMessage sentTo: self ]
+		ifFalse: [ resumeValue ]
 ]
 
 { #category : #all }
@@ -247,23 +243,6 @@ Object >> errorSubscriptBounds: index [
 	"Error: the given index is out of range."
 
 	self error: 'Subscript is out of bounds: ' , index printString
-]
-
-{ #category : #all }
-Object >> handleException: anException [
-	self handleExceptionName: anException description context: anException signalContext
-]
-
-{ #category : #all }
-Object >> handleExceptionName: aString context: aContext [
-	"Handle an error or halt with the given name in the given context."
-
-	"Not yet implemented. For now, just print the error and exit."
-
-	Object superclass
-		ifNil: [ self crError: 'Unhandled Exception: ', aString.
-			 Smalltalk exitToDebugger ]
-		ifNotNil: [ super error: aString ]	"exit to the VM debugger"
 ]
 
 { #category : #all }

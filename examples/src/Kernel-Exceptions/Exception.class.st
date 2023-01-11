@@ -325,3 +325,17 @@ Exception >> tag: t [
 
 	tag := t
 ]
+
+{ #category : #all }
+Exception >> printOn: aStream [
+
+	aStream
+		nextPutAll: self class name ;
+		nextPutAll: ' in '.
+	signalContext
+		ifNotNil: [ signalContext printOn: aStream ]
+		ifNil: [ '<unknown context>' ].
+	signaler ifNotNil: [
+		aStream nextPutAll: ' from '.
+		signaler printOn: aStream ]
+]
