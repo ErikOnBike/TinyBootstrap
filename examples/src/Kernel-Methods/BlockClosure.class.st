@@ -1,6 +1,7 @@
 Class {
 	#name : #BlockClosure,
 	#superclass : #Object,
+	#type : #variable,
 	#instVars : [
 		'outerContext',
 		'startpc',

@@ -1,6 +1,7 @@
 Class {
 	#name : #ConstantBlockClosure,
 	#superclass : #CleanBlockClosure,
+	#type : #variable,
 	#instVars : [
 		'literal'
 	],

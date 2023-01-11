@@ -1,6 +1,7 @@
 Class {
 	#name : #FullBlockClosure,
 	#superclass : #BlockClosure,
+	#type : #variable,
 	#instVars : [
 		'receiver'
 	],
