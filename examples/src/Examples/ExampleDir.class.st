@@ -7,14 +7,17 @@ Class {
 { #category : #all }
 ExampleDir class >> doIt [
 
-	| index dirEntry |
+	| directory index dirEntry |
 
-	"Print all entries in the current directory"
-	self crTrace: 'All entries in the current directory:'.
+	"Check directory on command line"
+	directory := (Smalltalk getSystemAttribute: 2) ifNil: [ '.' ].
+
+	"Print all entries in the specified (or if not specified, the current) directory"
+	self crTrace: 'All entries in the directory:'.
 
 	index := 1.
 	[ index isNotNil ] whileTrue: [
-		dirEntry := File lookupEntryIn: '.' index: index.
+		dirEntry := [ File lookupEntryIn: directory index: index ] on: Error do: [ self crTrace: 'Specified directory does not exist or is not readable'. nil ].
 		dirEntry
 			ifNotNil: [
 				self crTrace: dirEntry printString.
