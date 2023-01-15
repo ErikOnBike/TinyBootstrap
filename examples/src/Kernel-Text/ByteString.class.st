@@ -65,3 +65,8 @@ ByteString >> at: index put: aCharacter [
 			self becomeForward: (WideString from: self).
 			^ self at: index put: aCharacter ]
 ]
+
+{ #category : #all }
+ByteString >> isByteString [
+	^ true
+]
