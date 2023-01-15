@@ -61,5 +61,22 @@ If the tiny image is created correctly, you can execute it using the following (
 ./pharo example-counter.image
 ```
 
+### Dynamic image
+The Dynamic image is an image which has a pre-installed code loader. This allows code to be added (or removed) dynamically from a tiny image. Code can also be executed from the command line (simple class method invocation). Once the image contains all required code, it can also be 'fused', removing the code needed for dynamic code loading. When fused, the image is fixated to a specified execution method.
+
+To create the dynamic image:
+```bash
+./tiny-bootstrap.sh -a 64 -s ./dynamic/src -t dynamic.image -c "TtDynamic doIt"
+```
+
+For usage execute the following:
+```bash
+./pharo dynamic.image --help
+```
+
+Installing or uninstalling code is not permanent. Please add the `save` option to make it permanent. Not making it permanent by default allows to install code and try it out, before actually 'keeping' the change. Also the TtInspector from the TinyTools can be installed and executed, without having the change the image (permanently). 
+
+For examples of usage (installing and executing code), please check out the [TinyTools](https://github.com/ErikOnBike/TinyTools).
+
 ## Origin
 The bootstrapper is created to allow the tiny image for [CodeParadise](https://github.com/ErikOnBike/CodeParadise) to be bootstrapped. The source code for that tiny image can be found at [CP-Bootstrap](https://github.com/ErikOnBike/CP-Bootstrap).
