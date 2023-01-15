@@ -31,9 +31,15 @@ BlockClosure >> asContextWithSender: aContext [
 ]
 
 { #category : #all }
+BlockClosure >> fork [
+
+	^ self forkAt: 3 named: nil
+]
+
+{ #category : #all }
 BlockClosure >> forkAt: priority [
 
-	^ self forkAt: priority name: nil
+	^ self forkAt: priority named: nil
 ]
 
 { #category : #all }
