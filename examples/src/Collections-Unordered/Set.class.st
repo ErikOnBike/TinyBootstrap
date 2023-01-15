@@ -222,3 +222,10 @@ Set >> swap: oneIndex with: otherIndex [
 
 	array swap: oneIndex with: otherIndex
 ]
+
+{ #category : #all }
+Set >> occurrencesOf: anObject [
+	^ (self includes: anObject)
+		ifTrue: [ 1 ]
+		ifFalse: [ 0 ]
+]

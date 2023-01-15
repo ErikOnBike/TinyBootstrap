@@ -337,3 +337,13 @@ Collection >> sum [
 	self do: [ :el | total := total + el ].
 	^ total - seed	"subtract the seed value from the total"
 ]
+
+{ #category : #all }
+Collection >> occurrencesOf: anObject [
+	"Answer how many of the receiver's elements are equal to anObject."
+
+	| tally |
+	tally := 0.
+	self do: [ :each | anObject = each ifTrue: [ tally := tally + 1 ] ].
+	^ tally
+]
